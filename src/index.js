@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ContextProvider } from './context/UserContext';
+import { UserContextProvider } from './context/UserContext';
+import { ToastContextProvider } from './context/ToastContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ContextProvider>
-      <App />
-    </ContextProvider>
+    <UserContextProvider>
+      <ToastContextProvider>
+        <App />
+      </ToastContextProvider>
+    </UserContextProvider>
   </React.StrictMode>
 );
 

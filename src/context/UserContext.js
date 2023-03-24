@@ -2,7 +2,7 @@ import React, { useState, createContext } from "react";
 
 export const UserContext = createContext();
 
-export const ContextProvider = (props) => {
+export const UserContextProvider = (props) => {
     const [name, setName] = useState("");
     const [job, setJob] = useState("");
     return (

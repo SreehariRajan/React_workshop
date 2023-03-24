@@ -1,19 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import useFetch from '../hooks/useFetch';
+import React, { useContext, useState } from 'react';
 import { Button } from 'primereact/button';
-import { editBlog } from '../apis/edit';
-import { BASE_URL } from '../constants/url';
-import { addBlog } from '../apis/add';
-import { Toast } from 'primereact/toast';
+import { addBlog } from '../apis/blog';
+import { ToastContext } from '../context/ToastContext';
 
 
-function AddBlog(props) {
+function AddBlog() {
 
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [loading, setLoading] = useState(false);
-    const toast = useRef(null);
+
+    const { showToast } = useContext(ToastContext);
 
 
     const handleSubmit = async (e) => {
@@ -26,23 +23,18 @@ function AddBlog(props) {
         const response = await addBlog(data);
         setLoading(false);
 
-        console.log(response)
-        toast?.current.show();
         if (response.status === 200) {
-            if (toast.current !== null)
-                showToast('success', 'Success Message', 'Added successfully.')
+            showToast('success', 'Success', 'Added successfully.')
+        } else {
+            showToast('error', 'Failed', 'Failed to add.')
         }
 
     }
 
-    const showToast = (severityValue, summaryValue, detailValue) => {
-        toast.current.show({ severity: severityValue, summary: summaryValue, detail: detailValue });
-    }
 
     return (
         <div className='w-full flex flex-col p-5 md:p-10'>
             <h1 className='text-3xl font-bold mb-10'>Add Blog</h1>
-
             <form onSubmit={handleSubmit} className='w-full flex flex-col w-full md:w-3/4'>
                 <span className='flex flex-col items-start mb-4 w-full'>
                     <p className='font-bold'>Title</p>
@@ -54,16 +46,8 @@ function AddBlog(props) {
                 </span>
                 <div className='mb-5'>
                     <Button label="Submit" icon="pi pi-check" loading={loading} onSubmit={handleSubmit} />
-
-                </div>
-                <div>
-                    <Toast ref={toast} />
                 </div>
             </form>
-
-
-
-
         </div>
     );
 }

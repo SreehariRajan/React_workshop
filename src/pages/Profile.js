@@ -1,41 +1,31 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import useFetch from '../hooks/useFetch';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'primereact/button';
-import { editBlog } from '../apis/edit';
-import { BASE_URL } from '../constants/url';
-import { addBlog } from '../apis/add';
-import { Toast } from 'primereact/toast';
 import { UserContext } from '../context/UserContext';
+import { ToastContext } from '../context/ToastContext';
 
 
 function Profile(props) {
 
-    const [title, setTitle] = useState("");
-    const [body, setBody] = useState("");
     const [loading, setLoading] = useState(false);
-    const toast = useRef(null);
     const [tempName, setTempName] = useState("");
     const [tempJob, setTempJob] = useState("");
 
     const { nameState, jobState } = useContext(UserContext);
+    const { showToast } = useContext(ToastContext)
     const [name, setName] = nameState;
     const [job, setJob] = jobState;
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         setName(tempName);
         setJob(tempJob);
+        setLoading(false);
         showToast('success', 'Success Message', 'Added successfully.')
 
 
     }
-
-    const showToast = (severityValue, summaryValue, detailValue) => {
-        toast.current.show({ severity: severityValue, summary: summaryValue, detail: detailValue });
-    }
-
 
     useEffect(() => {
         setTempName(name);
@@ -58,9 +48,6 @@ function Profile(props) {
                 <div className='mb-5'>
                     <Button label="Submit" icon="pi pi-check" loading={loading} onSubmit={handleSubmit} />
 
-                </div>
-                <div>
-                    <Toast ref={toast} />
                 </div>
             </form>
 
