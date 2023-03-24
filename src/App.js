@@ -4,12 +4,9 @@ import NavBar from './components/NavBar';
 import Home from './pages/Home';
 
 import "primereact/resources/themes/lara-light-indigo/theme.css";
-
-//core
 import "primereact/resources/primereact.min.css";
-
-//icons
 import "primeicons/primeicons.css";
+
 import EditBlog from './pages/EditBlog';
 import AddBlog from './pages/AddBlog';
 import Profile from './pages/Profile';
