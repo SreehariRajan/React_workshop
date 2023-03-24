@@ -31,6 +31,7 @@ function AddBlog() {
 
         if (response.status === 200) {
             showToast('success', 'Success', 'Added successfully.');
+            navigate("/");
         } else if (response.status === 406) {
             showToast('warn', 'Failed', 'Complete your profile.');
             navigate("/profile");
