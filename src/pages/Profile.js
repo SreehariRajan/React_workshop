@@ -22,7 +22,7 @@ function Profile(props) {
         setName(tempName);
         setJob(tempJob);
         setLoading(false);
-        showToast('success', 'Success Message', 'Added successfully.')
+        showToast('success', 'Success', 'Profile updated.')
 
 
     }

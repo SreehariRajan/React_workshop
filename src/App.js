@@ -14,7 +14,7 @@ import EditBlog from './pages/EditBlog';
 import AddBlog from './pages/AddBlog';
 import Profile from './pages/Profile';
 import { Toast } from 'primereact/toast';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext } from 'react';
 import { ToastContext } from './context/ToastContext';
 
 function App() {

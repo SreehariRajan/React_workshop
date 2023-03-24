@@ -22,7 +22,7 @@ function Home() {
 
                             {data !== null && data.data.map((item, index) => {
                                 return (
-                                    <BlogCard key={index} id={item.id} title={item.title} body={item.body} />
+                                    <BlogCard key={index} id={item.id} title={item.title} body={item.body} author={item.author_name} />
                                 )
                             })}
                         </div>

@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import { Button } from 'primereact/button';
 import { addBlog } from '../apis/blog';
 import { ToastContext } from '../context/ToastContext';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
 
 function AddBlog() {
@@ -9,24 +11,32 @@ function AddBlog() {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const { showToast } = useContext(ToastContext);
+    const { nameState } = useContext(UserContext);
+    const [name, setName] = nameState;
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = {
             title: title,
-            body: body
+            body: body,
+            author_name: name,
         }
         setLoading(true);
         const response = await addBlog(data);
         setLoading(false);
 
         if (response.status === 200) {
-            showToast('success', 'Success', 'Added successfully.')
-        } else {
-            showToast('error', 'Failed', 'Failed to add.')
+            showToast('success', 'Success', 'Added successfully.');
+        } else if (response.status === 406) {
+            showToast('warn', 'Failed', 'Complete your profile.');
+            navigate("/profile");
+        }
+        else {
+            showToast('error', 'Failed', 'Failed to add.');
         }
 
     }
